@@ -5,7 +5,20 @@
 // password: "mariadb"
 // database: "mariadb"
 // port:     3306
+try {
+  $pdo = new PDO('mysql:host=127.0.0.1;port=3306;dbname=mariadb', 'mariadb', 'mariadb');
+  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+  // return first row
+  $sql = "SELECT * FROM tasks LIMIT 1";
+  $result = $pdo->query($sql);
+
+  // fetch the data we returned
+  $task = $result->fetch(PDO::FETCH_OBJ);
+  echo $task->description;
+} catch (PDOException $e) {
+  echo "db error: " . $e->getMessage();
+}
 ?>
 
 <!doctype html>
@@ -29,18 +42,23 @@
       </dl>
       <dl>
         <dt>Priority</dt>
-        <dd></dd>
+        <dd><?php echo $task->priority; ?></dd>
       </dl>
       <dl>
         <dt>Completed</dt>
-        <dd></dd>
+        <dd><?php echo $task->completed == 1 ? 'true' : 'false'; ?></dd>
       </dl>
       <dl>
         <dt>Description</dt>
-        <dd></dd>
+        <dd><?php echo $task-> $description ?></dd>
       </dl>
 
     </section>
 
   </body>
 </html>
+<?php 
+$result->free();
+
+$pdo->close()
+?>
