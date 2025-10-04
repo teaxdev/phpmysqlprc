@@ -1,8 +1,11 @@
 -- Using the root user, grant access to the mariadb user.
 GRANT ALL PRIVILEGES ON *.* TO 'mariadb'@'%' IDENTIFIED BY 'mariadb';
 
--- Create a table in the database
+CREATE DATABASE IF NOT EXISTS mariadb;
 USE mariadb;
+
+-- Create a table in the database
+
 CREATE TABLE tasks (
   id INT(11) NOT NULL AUTO_INCREMENT,
   priority INT(2),
